@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        async function sendRequest(){
+            const a1 = document.getElementById("a").value;
+            const b1 = document.getElementById("b").value;
+            
+            try{
+                const res = await fetch("http://localhost:3003/sum", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type" : "application/json",
+                    },
+                    body: JSON.stringify({
+                        a:a1,
+                        b:b1,
+                    }),
+                });
+                const data = await res.json();
+                console.log(data);
+            }catch(error){
+                console.error("Error occurred", error.message);
+            }
+            
+        }
+    </script>
+
+</head>
+<body>
+
+    <input id="a" type="text" placeholder="First Value"> </input>
+    <input id="b" type="text" placeholder="Second Value"> </input>
+
+    <button onclick="sendRequest()">Submit</button>
+</body>
+</html>

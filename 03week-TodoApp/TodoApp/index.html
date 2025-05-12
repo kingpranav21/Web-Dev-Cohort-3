@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="">
+    </head>
+    <body>
+        <input type="text" name=""> </input>
+        <button onclick="addTodo()">Add New Task</button>
+        <script>
+            // addTodo = () =>{
+            //     const value = document.querySelector("input").value;
+            //     const spanEle = document.createElement('span');
+            //     const buttonEl = document.createElement('button');
+            //     spanEle.innerHTML = value;
+            //     buttonEl.innerHTML = "Delete";
+            //     const divEl = document.createElement('div');
+            //     divEl.appendChild(spanEle);
+            //     divEl.appendChild(buttonEl);
+            //     document.querySelector('body').appendChild(divEl);
+            // }
+
+    let todos = [];
+    function addTodo() {
+      todos.push({
+        title: document.querySelector("input").value
+      })
+      render();
+    }
+
+    function deleteTodo() {
+      
+      render();
+    }
+ 
+    function render() {
+      todos.forEach((item) =>{
+         const div = document.createElement('div');
+      })
+      }
+        </script>
+    </body>
+</html>
