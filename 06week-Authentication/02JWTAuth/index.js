@@ -128,6 +128,7 @@ const signInHandler = (req, res) => {
     res.json({
       message: token,
     });
+    res.header("jwt", token);
     console.log({ token: token });
   } else {
     //unauthorized
@@ -152,14 +153,15 @@ app.post("/signin", signInHandler);
 //in Headers : set Key: Content-Type , value : application/json
 //Authorization : "tokenValue"
 app.get("/me", (req, res) => {
-    const token = req.headers.token;
-    const decodedInfo = jwt.verify(token, JWT_SECRET); //this will get {username: "Pranav"}
-    const username = decodedInfo.username;
+  const token = req.headers.token;
+  const verifiedInfo = jwt.verify(token, JWT_SECRET); //this will get {username: "Pranav"}
+  // const decodedInfo = jwt.decode(token); //not secure
+  const username = verifiedInfo.username;
 
-    let foundUser = null;
-    
+  let foundUser = null;
+
   for (let i = 0; i < users.length; i++) {
-    if (users[i].username == username) {
+    if (users[i].username === username) {
       foundUser = users[i];
     }
   }

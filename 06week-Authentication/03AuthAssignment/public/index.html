@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth App</title>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.7/axios.min.js"></script>
+<script>
+    const signUp = async() =>{
+        const username = document.getElementById("signUp-username").value;
+        const password = document.getElementById("signUp-password").value;
+
+        const response = await axios.post("http://localhost:3000/signUp", {
+            username:username,
+            password:password
+        })
+
+        alert("Account Created");
+    } 
+    
+    const signIn = async()=>{
+        const username = document.getElementById("signIn-username").value;
+        const password = document.getElementById("signIn-password").value;
+
+        const response = await axios.post("http://localhost:3000/signIn", {
+            username:username,
+            password:password
+        })
+
+        localStorage.setItem("token", response.data.authorization);
+        getuserInfo();
+        alert("Login Success");
+    }
+
+    const logOut = async() =>{
+        localStorage.removeItem("token");
+    }
+
+    //getuserInfo
+    const getuserInfo = async() =>{
+        const token = localStorage.getItem("token");
+        if(token){
+            const response = await axios.get("http://localhost:3000/me",{
+                //what we were sending manually ; token
+                headers:{
+                    authorization: token,
+                }
+            })
+            console.log(token);
+            console.log(response.data.username);
+            document.querySelector(".info").innerHTML = "Username: " + response.data.username + "Password: " + response.data.password;
+        }
+    }
+    
+</script>
+</script>
+<body>
+    <div class="signupBlock">
+        <h3>SignUp</h3>
+        <label for="username">Username</label> 
+        <input id="signUp-username" type="text" name="username" placeholder="username"> <br>
+        <label for="username">Password</label> 
+        <input id ="signUp-password"type="password" name="password" placeholder="password"><br>
+        <button onclick="signUp()">SignUp</button>
+    </div>
+
+    <div class="signinBlock">
+        <h3>SignIn</h3>
+        <label for="username">Username</label> 
+        <input id="signIn-username" type="text" name="username" placeholder="username"> <br>
+        <label for="username">Password</label> 
+        <input id="signIn-password" type="password" name="password" placeholder="password"><br>
+        <button onclick="signIn()">SignIn</button> <button onclick="logOut()">LogOut</button>
+    </div>
+
+    <div class="info">
+        User Information:
+        
+    </div>
+</body>
+</html>
