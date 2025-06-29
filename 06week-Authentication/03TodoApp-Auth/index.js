@@ -49,7 +49,6 @@ const signInHandler = (req, res) => {
 }
 app.post('/signIn', signInHandler);
 app.post('/signUp', signUpHandler);
-
 //authorization
 //this thing is verifying which user it is and giving you in req.username
 const authMiddleware = (req, res, next) => {
@@ -64,9 +63,7 @@ const authMiddleware = (req, res, next) => {
         })
     }   
 }
-
 //createTodo
-
 let todos = [];
 app.post('/createTodo', authMiddleware, (req, res) => {
     const username = req.username;
@@ -137,7 +134,6 @@ app.get('/getTodos', authMiddleware, (req, res) => {
             todos: foundUserTodos
         })
 })
-
 app.listen(3000);
 
 
