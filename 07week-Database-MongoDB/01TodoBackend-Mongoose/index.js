@@ -12,7 +12,7 @@ app.use(express.json()); //for parsing the body
 //mongoose.connect(mongodbClusterUrl/dbName);
 //if not created db it will create one for you
 
-mongoose.connect("mongodb+srv://pranavvahuja:UdRzlqnMSs29h91G@cluster0.9tg86xp.mongodb.net/Todo-app-db");
+mongoose.connect("mongoDBClusterUri/Todo-app-db");
 
 app.post('/signUp',async (req, res) => {
     const email = req.body.email;
